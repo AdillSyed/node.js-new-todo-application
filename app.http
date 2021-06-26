@@ -24,3 +24,17 @@ get http://localhost:3000/agenda/?date=04-22-2021
 ####
 
 post http://localhost:3000/
+
+###
+
+POST http://localhost:3000/todos/
+Content-Type: application/json
+
+{
+  "id": 8,
+  "todo": "bath",
+  "priority": "HIGH",
+  "status": "TO DO",
+  "category": "HOME",
+  "dueDate": "2028-02-28",
+}

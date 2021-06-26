@@ -42,7 +42,7 @@ const checkValidDate = (request, response, next) => {
   var dateObj = date.split("-");
   let year = dateObj[0];
   let mon = dateObj[1];
-  let dat = dateObj[2];
+  let day = dateObj[2];
   if (year.length === 4 && mon < 13 && day < 32) {
     next();
   } else {
@@ -273,8 +273,10 @@ app.get("/agenda/", checkValidDate, async (request, response) => {
       AND strftime("%m", due_date) == '${m}'
       AND strftime("%d", due_date) == '${d}';`;
 
-  const dateTodo = await database.get(getDateTodo);
-  response.send(convertDbObjectToResponseObject(dateTodo));
+  const dateTodo = await database.all(getDateTodo);
+  response.send(
+    dateTodo.map((eachDate) => convertDbObjectToResponseObject(eachDate))
+  );
 });
 
 app.post("/todos/", checkValidRequestQuery, async (request, response) => {
